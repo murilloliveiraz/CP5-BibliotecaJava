@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Novo Empréstimo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Novo Empréstimo</h1>
+    <form th:action="@{/emprestimos}" th:object="${emprestimo}" method="post">
+        <div class="mb-3">
+            <label class="form-label">Livro</label>
+            <select class="form-select" th:field="*{livro.id}">
+                <option th:each="livro : ${livros}" th:value="${livro.id}" th:text="${livro.titulo}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Usuário</label>
+            <select class="form-select" th:field="*{usuario.id}">
+                <option th:each="usuario : ${usuarios}" th:value="${usuario.id}" th:text="${usuario.nome}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Data Prevista de Devolução</label>
+            <input type="datetime-local" class="form-control" th:field="*{dataDevolucaoPrevista}" />
+            <div th:if="${#fields.hasErrors('dataDevolucaoPrevista')}" class="text-danger" th:errors="*{dataDevolucaoPrevista}"></div>
+        </div>
+        <button type="submit" class="btn btn-primary">Registrar Empréstimo</button>
+        <a th:href="@{/emprestimos}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>

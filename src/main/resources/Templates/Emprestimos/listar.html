@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Empréstimos Ativos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Empréstimos Ativos</h1>
+    <a th:href="@{/emprestimos/novo}" class="btn btn-primary mb-3">Novo Empréstimo</a>
+    <a th:href="@{/}" class="btn btn-secondary mb-3">Home</a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Livro</th>
+            <th>Usuário</th>
+            <th>Data Retirada</th>
+            <th>Data Prevista</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="emp : ${emprestimos}">
+            <td th:text="${emp.id}"></td>
+            <td th:text="${emp.livro.titulo}"></td>
+            <td th:text="${emp.usuario.nome}"></td>
+            <td th:text="${emp.dataRetirada}"></td>
+            <td th:text="${emp.dataDevolucaoPrevista}"></td>
+            <td>
+                <form th:action="@{/emprestimos/devolver/{id}(id=${emp.id})}" method="post" style="display: inline;">
+                    <button type="submit" class="btn btn-sm btn-success">Devolver</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
